@@ -11,10 +11,10 @@
     <name>Java Home myweb</name>
     <url>http://maven.apache.org</url>
 
-    <!-- Fixed properties - this solves the Java 5 error -->
+    <!-- Properties - fixes Java version issues -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Use Java 8 - safe choice that fixes "Source option 5" error -->
+        <!-- Safe Java 8 that works with modern Jenkins -->
         <maven.compiler.release>8</maven.compiler.release>
         <docker.image.prefix>kammana</docker.image.prefix>
     </properties>
@@ -52,10 +52,10 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <!-- Build section - this is the most important fix -->
+    <!-- Build section - IMPORTANT FIXES HERE -->
     <build>
         <plugins>
-            <!-- Updated compiler plugin to fix the compilation error -->
+            <!-- Compiler plugin - keeps Java 8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -63,6 +63,13 @@
                 <configuration>
                     <release>8</release>
                 </configuration>
+            </plugin>
+
+            <!-- War plugin - THIS FIXES YOUR CURRENT ERROR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
             </plugin>
         </plugins>
     </build>
